@@ -1,0 +1,168 @@
+{
+    "version":"0.1",
+    "pageContent":{
+      "_comments":"JSON object that contains data for page labels, buttons, etc.",
+      "navItems":{
+        "_common":{
+          "buttonBackToGallery":{
+            "name":"Back To Gallery",
+            "method":"backToGallery()",
+            "idName":"backToGallery"
+          },
+          "buttonStartTutorial":{
+            "name":"Start Tutorial",
+            "method":"startTutorialFromDetailsScreen()",
+            "idName":"startTutorial"
+          },
+          "buttonViewDetails":{
+            "name":"View Details",
+            "method":"viewDetails()",
+            "idName":"stepsViewDetails"
+          }
+        }
+      }
+    },
+	"tutorial":{
+      "_common":{
+        "name":"OpenAPI Specification v3 - Using an example REST API",
+        "shortDescription":"Learn how to use an IBM App Connect Enterprise REST API, which has been built to conform to the OpenAPI Specification",
+        "durationText":"This tutorial takes approximately",
+        "durationTime":"15 minutes",
+        "_resourceToOpenComment":"The ID of the first resource to open when the user imports the tutorial. Resource IDs are defined in the repo_metadata.json Tutorials listing on ot4i.",
+        "resourceToOpen":"CountryAPI",
+        "helpLink":{
+          "text":"IBM Knowledge Center",
+          "link":"https://www.ibm.com/support/knowledgecenter/en/SSTTDS_11.0.0/com.ibm.ace.home.doc/help_home.htm"
+        }
+      },
+      "pageDetails":{
+        "topicsName":"Tutorial Topics",
+        "_topicListComment":"A short list of product concepts or tasks demonstrated by this tutorial",
+        "topicList":[
+          {
+            "title":"IBM App Connect Enterprise REST API"		  
+          },
+          {
+            "title":"Subflows"
+          },
+          {
+            "title":"Transformation using graphical data mapping, Compute and Java Compute nodes."
+          }
+        ],
+        "outcomesName":"Learning outcomes",
+        "_outcomesComment":"Start learning some product basics with a very simple Toolkit use case",
+        "outcomeList":[
+          {
+            "title":"Understand how a REST API is defined, implemented, deployed, and invoked."
+          },
+		  {
+            "title":"Learn how to implement REST API operations by using subflows."
+          },
+		  {
+            "title":"Review how Java Compute, Compute and Mapping nodes can handle messages based on JSON objects."
+          }
+        ],
+        "summary":{
+          "overviewName":"OVERVIEW",
+          "_overviewComment":"A short description of what happens in this tutorial, and an optional short explanation of the IIB concepts used in this tutorial if necessary for context. What background knowledge must the user have for this to make sense?",
+          "sections":[
+            {
+              "section":"IBM App Connect Enterprise provides a specific type of project to support REST API implementations, which can either be based upon a Swagger (v2) specification document or an OpenAPI (v3) specification document. REST APIs can be authored and deployed from the IBM App Connect Enterprise Toolkit. This tutorial provides a simple example REST API built upon an OpenAPI v3 specification document. Several operations are implemented which provide basic information about countries such as their name, an abbreviated name format, capital city and population size. Queries can be made for a single or multiple countries, and data about new countries can also be added."
+            },
+            {
+              "section":"IBM App Connect Enterprise 12 provides a new OpenAPI Editor for OpenAPI v3 REST APIs. This editor enables you to easily add new operations and message structures to your REST API, and just like the long-standing editor for Swagger v2 REST APIs, links the REST interface with the required subflow definitions which dictate what happens in the App Connect Enterprise runtime when the REST API is invoked. An operation can make use of a JSON input object and URL parameters. The operations are implemented as subflows that use different transformation nodes. The nodes demonstrate how you can use ESQL, Java, or Graphical Mapping to process an incoming JSON message. The subflows also show you how to construct a response message that includes a JSON response object. The tutorial explores the example provided REST API and describes how it can be deployed and tested."
+            }			
+          ]
+        }
+      },
+      "pageSteps":{
+        "create":{
+          "overview":{
+            "name":"Create",
+            "heading":"Import project",
+            "_createComment":"A description of what will happen when the user clicks Import.",
+            "sections":[			  
+				  {
+                "section":"Click <span class='uicontrol'>Import</span> and the following projects will be imported into your workspace:<br>The REST API named <span class='uicontrol'>CountryAPI</span><br>An associated java project named <span class='uicontrol'>CountryAPIJava</span><br>Next, move to the Prepare section to see the steps that you complete to deploy the REST API."
+              }				
+            ]
+          },
+          "helpLinks":{
+            "title":"Find out more",
+            "details":[
+              {
+                "title":"Knowledge Center link to ",
+                "description":"Developing integration solutions from scratch",
+                "link":"https://www.ibm.com/support/knowledgecenter/en/SSTTDS_11.0.0/com.ibm.etools.mft.doc/bi12002_.htm",
+                "type":"web"
+              }
+            ]
+          },
+          "actions":{
+            "title":"Create Actions",
+            "details":[
+              {
+                "name":"Import",
+                "method":"importArtifacts()"
+              }
+            ]
+          }
+        },
+        "prepare":{
+          "overview":{
+            "name":"Prepare",
+            "heading":"Explore the provided integration artifacts",
+            "_prepareComment":"Creating an IntegrationServer:",
+            "sections":[
+              {
+                "section":"<b>Create an Integration Server and deploy the REST API</b>",
+                "steps":{
+                  "type":"ordered",
+                  "details":[
+                    {
+                      "details":"From the Integration Explorer view in the bottom left corner of the Toolkit, right-click the Integration Servers folder and select the option to <span class='uicontrol'>Create a local integration server</span>. Leave all the options with their default values and click Finish. The local Integration Server will be started, using a project in your Toolkit's workspace as the work directory. Click OK to dismiss the Success dialog."
+                    },
+					{
+                      "details":"In the <b>Independent Resources</b> section of the Application Development view in the top left corner of the Toolkit, you will find the project named <b>TEST_SERVER</b> which holds the working directory for the local Integration Server which you just started. Open the server.conf.yaml file in this project and edit the settings in the HTTPConnector section in order to enable the settings required to enable the server to respond to valid HTTP CORS requests. These alterations will enable you to test the deployed REST API from the App Connect Enterprise Web UI, should you wish to later in the tutorial:<br><br><code>&nbsp;&nbsp;HTTPConnector:<br>&nbsp;&nbsp;&nbsp;&nbsp;CORSEnabled: true<br>&nbsp;&nbsp;&nbsp;&nbsp;CORSAllowOrigins: '*'<br>&nbsp;&nbsp;&nbsp;&nbsp;CORSAllowMethods: 'GET,HEAD,POST,PUT,PATCH,DELETE,OPTIONS'<br>&nbsp;&nbsp;&nbsp;&nbsp;CORSAllowHeaders: 'Accept,Accept-Language,Content-Language,Content-Type'<br></code><br><br>Save the changes to the <b>server.conf.yaml</b> file. For the changes to take effect, the server must be restarted. Right click <b>TEST_SERVER</b> in the Integration Explorer view in the bottom left and stop the server. Once it stops, right-click the server again and start it."
+                    },
+					{
+					"details":"To deploy the REST API named <b>CountryAPI</b>, drag and drop it from the Application Development view on to the <b>TEST_SERVER</b> Integration Server"
+					}
+                  ]
+                }
+              }
+            ]
+          }
+        },		
+        "run":{
+          "overview":{
+            "name":"Run",
+            "heading":"Test the message flow using the local Integration Server",
+            "_runComment":"The full steps for the user to run through the tutorial. Use 'sections' to render paragraphs, 'steps' with a type of 'ordered' or 'unordered' to render HTML lists, and 'substeps' to render nested lists.",
+            "sections":[
+              {
+                "section":"",
+                "steps":{
+                  "type":"ordered",
+                  "details":[
+                    {
+                      "details":"If you wish, you can test the deployed REST API using your own preferred HTTP or REST client. From the Integration Explorer view, right-click <b>TEST_SERVER</b> and choose the option to <b>Start Web User Interface</b>. When your browser opens, you should see a square tile representing the CountryAPI REST API. Click on the tile and you will be taken to an Overview page. Note the main page provides an option to <b>Download OpenAPI Document</b> to get hold of a yaml representation of the deployed REST API. The Endpoint is also displayed - take a note of this as it will be helpful later when we use cURL to invoke the REST API. Select the operation <b>GET /countries</b> and on the resulting page, click on the <b>Try It</b> tab and click <b>Send</b>. You should receive a JSON response message which looks like this:<br><br><code>[<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"United Kingdom\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"abbreviation\": \"UK\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"capital\": \"London\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"population\": 67530172<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"France\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"abbreviation\": \"FR\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"capital\": \"Paris\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"population\": 65129728<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"name\": \"Germany\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"abbreviation\": \"DE\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"capital\": \"Berlin\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"population\": 83517045<br>&nbsp;&nbsp;}<br>]</code><br><br>"
+                    },
+					{
+					"details":"Now launch a command console and use cURL to invoke the available operations. Start by creating the data for a new country using a command like this (you will need to use your own host name and port, which you captured earlier from the Endpoint advertised in the Web User Interface):<br><br><code>curl -X POST http://yourhostname:7800/countryapi/v1/countries --data \"{\\\"name\\\":\\\"USA\\\",\\\"abbreviation\\\":\\\"US\\\",\\\"capital\\\":\\\"Washington DC\\\",\\\"population\\\":44444444}\"</code><br><br>You should receive a response like this:<br><br><code>{\"message\":\"A new country with name 'USA' was successfully added to the database.\"}</code>"
+                    },
+					{					
+					"details":"Next, query the data for a specific country using a request like this:<br><br><code>curl -X GET http://yourhostname:7800/countryapi/v1/countries/Germany</code><br><br>You should receive a response like this:<br><br><code>{\"name\":\"Germany\",\"abbreviation\":\"DE\",\"capital\":\"Berlin\",\"population\":83517045}</code>"
+					},					
+					{
+						"details":"This tutorial has shown how to use an IBM App Connect Enterprise REST API, which has been built to conform to the OpenAPI Specification"
+					}				
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }		
+  }
