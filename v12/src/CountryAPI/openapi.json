@@ -13,6 +13,8 @@
   "paths": {
     "/countries": {
       "get": {
+        "summary": "Get all countries",
+        "operationId": "getCountries",		  
         "parameters": [
           {
             "name": "limit",
@@ -46,6 +48,8 @@
         }
       },
       "post": {
+        "summary": "Add a country to the list of countries",
+        "operationId": "postCountries",		  
         "requestBody": {
           "content": {
             "application/json": {
