@@ -15,8 +15,8 @@
         <namespace kind="extension" prefix="Countries" uri="xalan://com.ibm.dev.Countries"/>
     </namespaces>
     <generation engine="xquery"/>
-    <mappingDeclaration name="showCountryByName_Mapping">
-        <input derivedFrom="MB:JSON_operation_name:showCountryByName" path="$var/mb:msg(BLOB,assembly,BLOB,Properties,LocalEnvironment)" var="ComIbmMessageAssembly_BLOB">
+    <mappingDeclaration name="getCountryName_Mapping">
+        <input derivedFrom="MB:JSON_operation_name:getCountryName" path="$var/mb:msg(BLOB,assembly,BLOB,Properties,LocalEnvironment)" var="ComIbmMessageAssembly_BLOB">
             <cast derivedFrom="MB:JSON_path_query_parm:countryName" path="$ComIbmMessageAssembly_BLOB/LocalEnvironment/REST/Input/Parameters/any" qualifier="countryName" ref="var1"/>
         </input>
         <output namespace="http://www.ibm.com/iib/msl/json" path="$var4/mb:msg(JSON,assembly,JSON,LocalEnvironment,Properties)" var="MessageAssembly">

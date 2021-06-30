@@ -14,7 +14,7 @@
     "/countries": {
       "get": {
         "summary": "Get all countries",
-        "operationId": "getCountries",		  
+        "operationId": "getCountries",      
         "parameters": [
           {
             "name": "limit",
@@ -49,7 +49,7 @@
       },
       "post": {
         "summary": "Add a country to the list of countries",
-        "operationId": "postCountries",		  
+        "operationId": "postCountries",      
         "requestBody": {
           "content": {
             "application/json": {
@@ -79,7 +79,7 @@
     "/countries/{countryName}": {
       "get": {
         "summary": "Info for a specific country",
-        "operationId": "showCountryByName",
+        "operationId": "getCountryName",
         "parameters": [
           {
             "name": "countryName",
